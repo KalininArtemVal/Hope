@@ -80,7 +80,6 @@ class FriendViewController: UIViewController {
                 self.friendAvatar.layer.cornerRadius = self.friendAvatar.frame.size.width / 2
                 self.friendUserName.text = getFriend.fullName
                 self.friendFollowersCount.text = String(getFriend.followedByCount)
-                print(getFriend.followedByCount,getFriend.followsCount)
                 self.friendFollowingCount.text = String(getFriend.followsCount)
                 self.title = getFriend.username
                 self.setFollowButton()
@@ -197,7 +196,6 @@ class FriendViewController: UIViewController {
                     self.buttonActiveIndicator.isHidden = true
                     self.buttonActiveIndicator.stopAnimating()
                     self.updateUI()
-                    print("Подписался")
                 }
             }
         } else {
@@ -208,7 +206,6 @@ class FriendViewController: UIViewController {
                     self.buttonActiveIndicator.isHidden = true
                     self.buttonActiveIndicator.stopAnimating()
                     self.updateUI()
-                    print("Отписался")
                 }
             }
         }

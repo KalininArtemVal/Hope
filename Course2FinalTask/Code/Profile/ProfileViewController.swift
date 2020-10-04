@@ -33,8 +33,6 @@ class ProfileViewController: UIViewController {
     var followingThisUser = [User]()
     var followedByThisUser = [User]()
     
-    
-    
     func setArrayOfCurrentPost() {
         if let asyncCurrentUser = asyncCurrentUser {
             post.findPosts(by: asyncCurrentUser.id, queue: DispatchQueue.global()) { (postsOfCurrentUser) in
@@ -48,7 +46,6 @@ class ProfileViewController: UIViewController {
     }
     
     var arrayOfCurrentPostUnwrapped = [Post]()
-    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -73,8 +70,6 @@ class ProfileViewController: UIViewController {
         invisibleView.addSubview(activityIndicatorCurrent)
     }
     
-    
-    
     private func setCurrentUser() {
         user.currentUser(queue: DispatchQueue.global()) { (user) in
             guard user != nil else {return self.alertMessage()}
@@ -94,10 +89,8 @@ class ProfileViewController: UIViewController {
                     
                 }
             }
-            
         }
     }
-    
     
     func getFollowers() {
         guard let currentUser = asyncCurrentUser else {return}
@@ -175,8 +168,6 @@ extension ProfileViewController: UICollectionViewDelegate, UICollectionViewDataS
         cell.configue(with: post.image)
         return cell
     }
-    
-    
 }
 
 extension ProfileViewController: UICollectionViewDelegateFlowLayout {
