@@ -39,6 +39,7 @@ class SelectFiltersViewController: UIViewController {
     func indicator() {
         invisibleView.contentMode = .scaleAspectFit
         invisibleView.frame = CGRect(x: 0, y: 0, width: self.view.frame.width, height: self.view.frame.height)
+//        invisibleView.frame = .zero
         invisibleView.backgroundColor = .black
         invisibleView.alpha = 0.7
         view.addSubview(invisibleView)

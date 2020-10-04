@@ -73,6 +73,7 @@ class FriendViewController: UIViewController {
             guard user != nil else {return self.alertMessage()}
             self.getFollower()
             self.getFriend()
+            self.getCurrentUser()
             DispatchQueue.main.async {
                 self.gettingFriend = user
                 guard let getFriend = self.gettingFriend else {return}
@@ -83,6 +84,7 @@ class FriendViewController: UIViewController {
                 self.friendFollowingCount.text = String(getFriend.followsCount)
                 self.title = getFriend.username
                 self.setFollowButton()
+                self.getCurrentUser()
             }
         }
     }
@@ -119,14 +121,29 @@ class FriendViewController: UIViewController {
         }
     }
     
-    //Получаем подписчиков ДРУГА
+    //Функция для проверки текущего пользователя Если он убираем кнопку follow
+    func getCurrentUser() {
+        user.currentUser(queue: DispatchQueue.global()) { (user) in
+            guard user != nil else {return self.alertMessage()}
+            self.currentUser = user
+            DispatchQueue.main.async {
+                if self.gettingFriend?.id == self.currentUser?.id {
+                    self.followButtonLable.isHidden = true
+                    self.invisibleView.isHidden = true
+                } else {
+                    self.invisibleView.isHidden = true
+                }
+            }
+        }
+    }
+    
+    //Получаем подписчиков ДРУГА. HIdden
     func getFollower() {
         guard let friend = currentFriend else {return}
         user.usersFollowedByUser(with: friend.id, queue: DispatchQueue.global()) { (followers) in
             guard followers != nil else {return self.alertMessage()}
             DispatchQueue.main.async {
                 currentUserFollowers = followers ?? []
-                self.invisibleView.isHidden = true
             }
         }
         user.usersFollowingUser(with: friend.id, queue: DispatchQueue.global()) { (following) in
@@ -153,7 +170,7 @@ class FriendViewController: UIViewController {
     }
     
     //MARK: - FINDPOST
-    //функция где мы достаем из DataProvider посты для ДРУГА
+    //функция где мы достаем из DataProvider посты для ДРУГА. HIdden
     func getFriend() {
         if let currentFriend = currentFriend {
             //Если массив пуст, заполняем его
@@ -162,7 +179,6 @@ class FriendViewController: UIViewController {
                     guard arrayFriendPost != nil else {return self.alertMessage()}
                     DispatchQueue.main.async {
                         self.unwrappedArrayOfFriendPost = arrayFriendPost ?? []
-                        self.invisibleView.isHidden = true
                         self.friendCollectionView.reloadData()
                     }
                 }
@@ -173,7 +189,6 @@ class FriendViewController: UIViewController {
                     guard arrayFriendPost != nil else {return self.alertMessage()}
                     DispatchQueue.main.async {
                         self.unwrappedArrayOfFriendPost = arrayFriendPost ?? []
-                        self.invisibleView.isHidden = true
                         self.friendCollectionView.reloadData()
                     }
                 }
