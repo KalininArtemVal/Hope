@@ -37,9 +37,7 @@ class SharedViewController: UIViewController {
     
     @IBAction func shredButton(_ sender: Any) {
         descriptionText = sharedTextField.text ?? ""
-        print(descriptionText)
         post.newPost(with: sharedImage, description: sharedTextField.text ?? "", queue: DispatchQueue.global()) { (_) in  }
-        print("опубликовал")
         
         let alertController = UIAlertController(title: "Пост опубликован", message: "Вы можете его найти в своих публикациях", preferredStyle: .alert)
         let action = UIAlertAction(title: "OK", style: .default)

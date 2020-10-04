@@ -42,7 +42,6 @@ class FollowedByUser: UIViewController {
         guard self.friends != nil else {return}
         self.friendsWithOutNill = self.friends ?? []
         self.tableView.reloadData()
-        //        self.invisibleView.isHidden = true
     }
     
     func indicator() {
@@ -64,15 +63,10 @@ extension FollowedByUser: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let friend = friendsWithOutNill[indexPath.row]
-        //        guard let friend = friends?[indexPath.row] else {return UITableViewCell()}
-        
-        //        tableView.reloadData()
         let cell = tableView.dequeueReusableCell(withIdentifier: "followedCell", for: indexPath) as! FollowedByUserTableViewCell
-        
         cell.userName.text = friend.fullName
         cell.userPhoto.image = friend.avatar
         cell.userPhoto.layer.cornerRadius = cell.userPhoto.frame.size.width / 2
-        //        invisibleView.isHidden = true
         return cell
     }
     

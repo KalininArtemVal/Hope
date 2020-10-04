@@ -585,9 +585,6 @@
                                     <action selector="unwindToFeed:" destination="xIq-Pl-so9" eventType="touchUpInside" id="B5I-7z-tWR"/>
                                 </connections>
                             </button>
-                            <connections>
-                                <segue destination="WUG-Jr-vxh" kind="unwind" unwindAction="unwindToFeed:" id="GpX-WO-uW2"/>
-                            </connections>
                         </barButtonItem>
                     </navigationItem>
                     <connections>
@@ -597,7 +594,6 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="6zh-TS-bYr" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-                <exit id="WUG-Jr-vxh" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="3175.36231884058" y="1292.4107142857142"/>
         </scene>

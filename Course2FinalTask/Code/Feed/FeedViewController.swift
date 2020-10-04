@@ -27,7 +27,6 @@ let queueUtility = DispatchQueue.global(qos: .utility)
 class FeedViewController: UIViewController, UIGestureRecognizerDelegate {
     
     
-    
     @IBOutlet weak var activeIndicator: UIActivityIndicatorView!
     @IBOutlet weak var feedCollectionView: UICollectionView!
     
@@ -66,7 +65,7 @@ class FeedViewController: UIViewController, UIGestureRecognizerDelegate {
             }
         }
     }
-    
+    //Индикатор активности
     func activIndicator() {
         self.activeIndicator.isHidden = false
         activeIndicator.startAnimating()
@@ -105,7 +104,6 @@ class FeedViewController: UIViewController, UIGestureRecognizerDelegate {
         self.present(alertController, animated: true, completion: nil)
     }
 }
-
 
 
 
@@ -159,7 +157,6 @@ extension FeedViewController: UICollectionViewDelegateFlowLayout, CellDelegate {
                 self.feedCollectionView.reloadData()
             }
         }
-        
     }
     
     
@@ -195,31 +192,26 @@ extension FeedViewController: UICollectionViewDelegateFlowLayout, CellDelegate {
     
     // MARK: - didTap on Avatar (Переход по тапу на Аватар/Имя)
     func didTap(OnAvatarIn cell: UICollectionViewCell, currentPost: Post) {
-        var changeFollow = ""
-        //Вытаскиваем follwed
         guard let current = curUser else {return}
         user.usersFollowedByUser(with: current.id, queue: DispatchQueue.global()) { (followers) in
-            guard followers != nil else {return}
+            guard followers != nil else {return self.alertMessage()}
             self.follwed = followers ?? []
             for user in self.follwed {
                 if user.id == currentPost.author {
                     self.userOfCurrentPost = user
-                    changeFollow = "Unfollow"
+                } else if currentPost.author == current.id {
+                    self.userOfCurrentPost = current
                 }
             }
             DispatchQueue.main.async {
                 if #available(iOS 13.0, *) {
                     guard let secondViewController = self.storyboard?.instantiateViewController(identifier: "FriendViewController") as? FriendViewController else { return }
-                    
-                    secondViewController.lebleOfFollowButton = changeFollow
                     secondViewController.currentFriend = self.userOfCurrentPost
                     self.show(secondViewController, sender: self)
                 }
             }
         }
     }
-    
-    
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let size = CGSize(width: UIScreen.main.bounds.size.width/1.0, height: 600)

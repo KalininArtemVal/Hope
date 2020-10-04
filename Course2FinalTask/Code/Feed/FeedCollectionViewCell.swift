@@ -91,7 +91,6 @@ class FeedCollectionViewCell: UICollectionViewCell {
             guard let currentPost = self.currentPost else {return}
             post.likePost(with: currentPost.id, queue: DispatchQueue.global()) { (_) in }
             DispatchQueue.main.async {
-                print("liked post")
                 self.countOfLikes?.text = String(countLike)
                 self.imageHeartOfLike.image = #imageLiteral(resourceName: "like")
                 self.imageHeartOfLike.tintColor = .systemBlue
@@ -103,7 +102,6 @@ class FeedCollectionViewCell: UICollectionViewCell {
             guard let currentPost = self.currentPost else {return}
             post.unlikePost(with: currentPost.id, queue: DispatchQueue.global()) { (_) in }
             DispatchQueue.main.async {
-                print("Unliked post")
                 self.imageHeartOfLike.image = #imageLiteral(resourceName: "like")
                 self.imageHeartOfLike.tintColor = .lightGray
                 self.countOfLikes?.text = String(countLike)
